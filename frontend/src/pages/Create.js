@@ -5,6 +5,7 @@ import Container from "@material-ui/core/Container";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import { makeStyles } from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
+import {FormControlLabel, Radio, RadioGroup, FormControl, FormLabel} from "@material-ui/core";
 
 const useStyles = makeStyles({
   field: {
@@ -21,6 +22,7 @@ export default function Create() {
   const [details, setDetails] = useState("");
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
+  const [category, setCategory] = useState('todos')
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,6 +66,7 @@ export default function Create() {
           required
           error={titleError}
         ></TextField>
+
         <TextField
           onChange={(e) => {
             setDetails(e.target.value);
@@ -77,7 +80,17 @@ export default function Create() {
           fullWidth
           required
           error={detailsError}
-        ></TextField>
+        />
+
+        <FormControl className={classes.field}>
+          <FormLabel>Note Category</FormLabel>
+          <RadioGroup value={category} onChange={(e) => setCategory(e.target.value)}>
+            <FormControlLabel value="money" control={<Radio />} label="Money" />
+            <FormControlLabel value="todos" control={<Radio />} label="Todos" />
+            <FormControlLabel value="reminders" control={<Radio />} label="Reminders" />
+            <FormControlLabel value="work" control={<Radio />} label="Work" />
+          </RadioGroup>
+        </FormControl>
         <Button
           type="submit"
           color="secondary"
